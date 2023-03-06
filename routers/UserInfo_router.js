@@ -1,0 +1,10 @@
+const router = require("express").Router()
+const { Register, updateUser, Info, Login, onLogout, Success } = require("../Controller/UserInfo_Controller")
+const { isAuth } = require("../middleware/isAuth")
+router.post("/register", Register)
+router.post("/login", Login)
+router.put("/update", isAuth, updateUser)
+router.post("/info", isAuth, Info)
+router.post("/logout", onLogout)
+router.get("/success", isAuth, Success)
+module.exports = router
