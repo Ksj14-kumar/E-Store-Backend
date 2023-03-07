@@ -50,6 +50,7 @@ app.use(helmet.contentSecurityPolicy({
 }))
 app.use(morgan("combined", { stream: accessLogStream }))
 app.use(express.static("view"))
+app.use("/api/v1/stripe/webhook", express.raw({ type: 'application/json' }))
 app.use(express.json({ limit: "10mb" }))
 app.use(express.urlencoded({ limit: "200mb", extended: true }))
 app.use(bodyParser.json({ limit: "10mb" }))

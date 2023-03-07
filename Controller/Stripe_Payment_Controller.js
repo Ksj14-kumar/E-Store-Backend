@@ -43,6 +43,7 @@ class Payment {
             data = req.body.data.object
             eventType = req.body.type
         }
+        console.log({eventType})
         if (eventType === "checkout.session.completed") {
             try {
                 const accessCustomerMetaData = await stripe.customers.retrieve(data.customer)
