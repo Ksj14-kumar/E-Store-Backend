@@ -4,7 +4,7 @@ const { Stripe_Payment } = require("../Config/Stripe.Config")
 const { SaveOrderInDBAfterSuccessPayment } = require('../util/OrderShema_Operations');
 const stripe = require('stripe')(process.env.STRIPE_SECRET);
 let endpointSecret;
-endpointSecret=process.env.STRIPE_END_POINT_SECRET // disabled for dev env,
+// endpointSecret=process.env.STRIPE_END_POINT_SECRET // disabled for dev env,
 class Payment {
     async checkout_session(req, res) {
         try {
@@ -48,6 +48,7 @@ class Payment {
             try {
                 const accessCustomerMetaData = await stripe.customers.retrieve(data.customer)
                 const result = SaveOrderInDBAfterSuccessPayment(accessCustomerMetaData, data)
+                console.log("stripe checkoutsession complete")
                 console.log({ result })
                 if (result) {
                     res.status(200).send("success")
