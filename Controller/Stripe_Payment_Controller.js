@@ -22,7 +22,6 @@ class Payment {
             return res.status(500).send("something error occured")
         }
     }
-
     async WebHook(req, res) {
         const sig = req.headers['stripe-signature'];
         console.log("webhook")
