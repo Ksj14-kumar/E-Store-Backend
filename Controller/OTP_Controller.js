@@ -16,13 +16,17 @@ class OTP_Class {
             if (!isValidEmail(email)) {
                 return res.status(400).send("invalid email")
             }
-            const isAlredyVerify = await UserSchema.findOne({ $or: [{ email: email }, { _id: userId }] }).exec()
-            console.log({ isAlredyVerify })
-            if (!isAlredyVerify) {
-                return res.status(400).send("user not register")
-            }
-            if (isAlredyVerify && (isAlredyVerify.verify && isAlredyVerify.email === email)) {
-                return res.status(200).send("email already verify")
+            console.log("user")
+            console.log(req.user)
+            if (!req.user) {
+                const isAlredyVerify = await UserSchema.findOne({ $or: [{ email: email }, { _id: userId }] }).exec()
+                console.log({ isAlredyVerify })
+                if (!isAlredyVerify) {
+                    return res.status(400).send("user not register")
+                }
+                if (isAlredyVerify && (isAlredyVerify.verify && isAlredyVerify.email === email)) {
+                    return res.status(200).send("email already verify")
+                }
             }
             const newOTP = await OTP_Service.get_otp()
             //delete preious otps
@@ -142,4 +146,4 @@ class OTP_Class {
     }
 }
 
-module.exports= new OTP_Class()
+module.exports = new OTP_Class()
