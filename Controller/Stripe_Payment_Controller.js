@@ -47,7 +47,7 @@ class Payment {
         if (eventType === "checkout.session.completed") {
             try {
                 const accessCustomerMetaData = await stripe.customers.retrieve(data.customer)
-                const result = SaveOrderInDBAfterSuccessPayment(accessCustomerMetaData, data)
+                const result = await SaveOrderInDBAfterSuccessPayment(accessCustomerMetaData, data)
                 console.log("stripe checkoutsession complete")
                 console.log({ result })
                 if (result) {
