@@ -1,3 +1,4 @@
+const passport= require("passport")
 class Other_login {
     async googleCallback(req, res, next) {
         passport.authenticate("google", {
@@ -7,7 +8,6 @@ class Other_login {
             failureMessage: "not login"
         })(req, res, next)
     }
-
     async failed(req, res) {
         try {
             return res.send("failed")
