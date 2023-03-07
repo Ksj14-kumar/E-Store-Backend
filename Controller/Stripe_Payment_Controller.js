@@ -25,14 +25,16 @@ class Payment {
     async WebHook(req, res) {
         const sig = req.headers['stripe-signature'];
         console.log("webhook")
+        console.log(req.rawBody)
         let data, eventType;
         if (endpointSecret) {
             let event;
             try {
-                event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_END_POINT_SECRET);
+                console.log({endpointSecret})
+                event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
                 console.log({ event })
             } catch (err) {
-                console.log(err)
+                console.log(err.message)
                 res.status(400).send(`Webhook Error: ${err.message}`);
                 return;
             }
