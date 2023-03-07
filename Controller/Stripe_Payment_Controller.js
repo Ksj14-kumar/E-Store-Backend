@@ -59,6 +59,7 @@ class Payment {
             }
 
         }
+        res.status(200).end()
     }
 }
 
